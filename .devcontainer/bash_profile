@@ -1,6 +1,9 @@
 # Load system profile
 [ -f /etc/profile ] && . /etc/profile
 
+# nvm
+[ -s /usr/local/share/nvm/nvm.sh ] && . /usr/local/share/nvm/nvm.sh
+
 # Claude Code: use system ripgrep instead of bundled binary
 export USE_BUILTIN_RIPGREP=0
 
