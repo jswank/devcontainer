@@ -47,5 +47,11 @@
     }
   },
 
+  // Share the host AWS SSO token cache so engineers don't re-auth inside the container.
+  // The host must have run `aws sso login` at least once.
+  "mounts": [
+    "source=${localEnv:HOME}/.aws/sso,target=/home/vscode/.aws/sso,type=bind,consistency=cached"
+  ],
+
   "remoteUser": "vscode"
 }

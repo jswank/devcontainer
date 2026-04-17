@@ -18,8 +18,7 @@ COPY --chown=vscode:vscode aws-config /home/vscode/.aws/config
 
 # Install Node.js via nvm (pre-installed in base image) and Claude Code
 USER vscode
-RUN bash -c 'source /usr/local/share/nvm/nvm.sh && nvm install --lts'
-RUN bash -c 'source /usr/local/share/nvm/nvm.sh && curl -fsSL https://claude.ai/install.sh | bash'
+RUN curl -fsSL https://claude.ai/install.sh | bash
 
 # Shell profile: Bedrock auth helpers and Claude Code env vars
 COPY --chown=vscode:vscode bash_profile /home/vscode/.bash_profile
