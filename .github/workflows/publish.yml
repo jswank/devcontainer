@@ -32,7 +32,7 @@ jobs:
       - name: Generate tags
         id: tags
         run: |
-          DATE_TAG=$(date +%Y-%m)
+          DATE_TAG=$(date +%Y%m%d)
           echo "date_tag=${DATE_TAG}" >> $GITHUB_OUTPUT
 
       - name: Build and push
