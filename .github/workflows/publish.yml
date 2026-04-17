@@ -10,7 +10,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE: ghcr.io/jswank/devcontainer
+  IMAGE: ghcr.io/scalene-net/devcontainer
 
 jobs:
   build-and-push:
