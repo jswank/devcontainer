@@ -2,15 +2,15 @@ FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
 
 # ripgrep: used by Claude Code (USE_BUILTIN_RIPGREP=0 in shell profile).
 # unzip: required by AWS CLI installer.
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update -qq && apt-get install -y -qq --no-install-recommends \
     ripgrep \
     unzip \
   && rm -rf /var/lib/apt/lists/*
 
 # awscli v2: required for Bedrock SSO auth (use-bedrock function).
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-$(uname -m).zip" -o /tmp/awscliv2.zip \
-  && unzip /tmp/awscliv2.zip -d /tmp \
-  && /tmp/aws/install \
+RUN curl -fsSL "https://awscli.amazonaws.com/awscli-exe-linux-$(uname -m).zip" -o /tmp/awscliv2.zip \
+  && unzip -q /tmp/awscliv2.zip -d /tmp \
+  && /tmp/aws/install --silent \
   && rm -rf /tmp/awscliv2.zip /tmp/aws
 
 # Org AWS config — contains SSO routing only, no secrets.
