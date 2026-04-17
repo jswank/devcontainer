@@ -20,5 +20,5 @@ COPY --chown=vscode:vscode aws-config /home/vscode/.aws/config
 USER vscode
 RUN curl -fsSL https://claude.ai/install.sh | bash
 
-# Shell profile: Bedrock auth helpers and Claude Code env vars
-COPY --chown=vscode:vscode bash_profile /home/vscode/.bash_profile
+# Shell aliases/env: Bedrock auth helpers and Claude Code env vars
+COPY --chown=vscode:vscode bash_aliases /home/vscode/.bash_aliases
