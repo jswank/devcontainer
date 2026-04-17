@@ -1,0 +1,10 @@
+[profile cui-ai-user]
+sso_session = internal-ai-prod
+sso_account_id = 788088338817
+sso_role_name = AWS-CUI-AI-Users
+region = us-east-2
+
+[sso-session internal-ai-prod]
+sso_start_url = https://d-9a672f8c7e.awsapps.com/start
+sso_region = us-east-2
+sso_registration_scopes = sso:account:access

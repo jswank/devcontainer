@@ -1,0 +1,51 @@
+// Org devcontainer — Claude Code on Ubuntu 24.04
+// Image: ghcr.io/jswank/devcontainer
+// Docs: https://aka.ms/devcontainer.json
+{
+  "name": "org-devcontainer",
+  "image": "ghcr.io/jswank/devcontainer:latest",
+
+  // Bedrock model IDs default to org-blessed values (set in shell profile).
+  // Override any of these on the host to use a different model.
+  "remoteEnv": {
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "${localEnv:ANTHROPIC_DEFAULT_OPUS_MODEL}",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "${localEnv:ANTHROPIC_DEFAULT_SONNET_MODEL}",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "${localEnv:ANTHROPIC_DEFAULT_HAIKU_MODEL}"
+  },
+
+  // -------------------------------------------------------------------------
+  // Extending this devcontainer
+  //
+  // OPTION A — devcontainer Features (preferred for standard tools):
+  //
+  // "features": {
+  //   "ghcr.io/devcontainers/features/aws-cli:1": {},
+  //   "ghcr.io/devcontainers/features/opentofu:1": {}
+  // }
+  //
+  // OPTION B — Dockerfile inheritance (for tools with no published Feature):
+  //
+  //   Replace the "image" line above with:
+  //   "build": { "dockerfile": "Dockerfile.local" }
+  //
+  //   Dockerfile.local:
+  //     FROM ghcr.io/jswank/devcontainer:latest
+  //     RUN apt-get install -y my-custom-tool
+  //
+  // See ADR 0001 for the full rationale.
+  // -------------------------------------------------------------------------
+
+  // Forward ports as needed for local web servers or MCP servers.
+  // "forwardPorts": [],
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": []
+    }
+  },
+
+  "remoteUser": "vscode"
+}

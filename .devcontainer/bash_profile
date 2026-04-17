@@ -1,0 +1,27 @@
+# Load system profile
+[ -f /etc/profile ] && . /etc/profile
+
+# Claude Code: use system ripgrep instead of bundled binary
+export USE_BUILTIN_RIPGREP=0
+
+export AWS_REGION=${AWS_REGION:-"us-east-2"}
+export AWS_PROFILE=${AWS_PROFILE:-"cui-ai-user"}
+
+# Org-default Bedrock model IDs — override in your environment if needed.
+export ANTHROPIC_DEFAULT_OPUS_MODEL=${ANTHROPIC_DEFAULT_OPUS_MODEL:-"us.anthropic.claude-opus-4-7-v1"}
+export ANTHROPIC_DEFAULT_SONNET_MODEL=${ANTHROPIC_DEFAULT_SONNET_MODEL:-"us.anthropic.claude-sonnet-4-6"}
+export ANTHROPIC_DEFAULT_HAIKU_MODEL=${ANTHROPIC_DEFAULT_HAIKU_MODEL:-"us.anthropic.claude-haiku-4-5-20251001-v1:0"}
+
+# use-bedrock: authenticate via AWS SSO and configure Claude Code for Bedrock
+use-bedrock() {
+  if [ -n "$AWS_ACCESS_KEY_ID" ] && [ -n "$AWS_SECRET_ACCESS_KEY" ]; then
+    echo "AWS credentials already set. Skipping Bedrock setup." >&2
+    return
+  fi
+  aws sso login --use-device-code
+  eval $(aws configure export-credentials --format env)
+  export CLAUDE_CODE_USE_BEDROCK=1
+  export CLAUDE_BEDROCK_AWS_REGION=$AWS_REGION
+  printf 'Bedrock environment set.\n\tOpus:   %s\n\tSonnet: %s\n\tHaiku:  %s\n' \
+    "$ANTHROPIC_DEFAULT_OPUS_MODEL" "$ANTHROPIC_DEFAULT_SONNET_MODEL" "$ANTHROPIC_DEFAULT_HAIKU_MODEL" >&2
+}
