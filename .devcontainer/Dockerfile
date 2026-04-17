@@ -10,7 +10,7 @@ RUN apt-get update -qq && apt-get install -y -qq --no-install-recommends \
 # awscli v2: required for Bedrock SSO auth (use-bedrock function).
 RUN curl -fsSL "https://awscli.amazonaws.com/awscli-exe-linux-$(uname -m).zip" -o /tmp/awscliv2.zip \
   && unzip -q /tmp/awscliv2.zip -d /tmp \
-  && /tmp/aws/install --silent \
+  && /tmp/aws/install \
   && rm -rf /tmp/awscliv2.zip /tmp/aws
 
 # Org AWS config — contains SSO routing only, no secrets.
